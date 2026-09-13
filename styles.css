@@ -1,0 +1,645 @@
+/* ==========================================================================
+   Obsidian Workout Tracker (Hevy Style) - Native Obsidian Stylesheet
+   ========================================================================== */
+
+/* Podstawowe kontenery modala */
+.workout-tracker-modal-root {
+  width: min(840px, 94vw);
+  max-width: 900px;
+  max-height: 88vh;
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--background-primary);
+  border: 1px solid var(--background-modifier-border);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+}
+
+.workout-tracker-modal-content {
+  padding: 0 !important;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* ==========================================================================
+   Wersja mobilna (Android / iOS): 100vw, 100vh, natywne Safe Area
+   ========================================================================== */
+.workout-tracker-modal-root.is-mobile-fullscreen {
+  position: fixed !important;
+  inset: 0 !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  max-width: 100vw !important;
+  max-height: 100vh !important;
+  margin: 0 !important;
+  border-radius: 0 !important;
+  border: none !important;
+  z-index: var(--layer-modal, 1000) !important;
+  padding-top: env(safe-area-inset-top, 0) !important;
+  padding-bottom: env(safe-area-inset-bottom, 0) !important;
+}
+
+body.workout-active-fullscreen-mode .modal-bg {
+  opacity: 0.95 !important;
+}
+
+/* ==========================================================================
+   Nagłówek sesji (Header)
+   ========================================================================== */
+.workout-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 18px;
+  background-color: var(--background-secondary);
+  border-bottom: 1px solid var(--background-modifier-border);
+  flex-shrink: 0;
+}
+
+.workout-modal-title {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--text-normal);
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 50%;
+}
+
+.workout-duration-badge {
+  font-family: var(--font-monospace, monospace);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--interactive-accent);
+  background-color: var(--background-modifier-hover);
+  padding: 4px 10px;
+  border-radius: 6px;
+  letter-spacing: 0.05em;
+}
+
+/* ==========================================================================
+   Timer odpoczynku (Rest Timer Bar - Sticky u góry)
+   ========================================================================== */
+.workout-rest-timer-bar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: linear-gradient(180deg, var(--background-secondary) 0%, var(--background-primary) 100%);
+  border-bottom: 2px solid var(--interactive-accent);
+  padding: 10px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  animation: slideDownRest 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.workout-rest-timer-bar.is-hidden {
+  display: none !important;
+}
+
+@keyframes slideDownRest {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.workout-rest-timer-info-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.workout-rest-timer-label {
+  font-family: var(--font-monospace, monospace);
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--text-accent, var(--interactive-accent));
+  letter-spacing: 0.03em;
+}
+
+.workout-rest-timer-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.workout-rest-progress-wrapper {
+  width: 100%;
+  height: 6px;
+  background-color: var(--background-modifier-border);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.workout-rest-progress-fill {
+  height: 100%;
+  background-color: var(--interactive-accent, #10b981);
+  width: 100%;
+  transition: width 0.4s linear;
+  border-radius: 999px;
+}
+
+/* ==========================================================================
+   Główny obszar przewijania ćwiczeń
+   ========================================================================== */
+.workout-exercises-scroll-area {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* ==========================================================================
+   Karta ćwiczenia
+   ========================================================================== */
+.workout-exercise-card {
+  background-color: var(--background-secondary);
+  border: 1px solid var(--background-modifier-border);
+  border-radius: 10px;
+  padding: 14px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.workout-exercise-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.workout-exercise-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.workout-exercise-index {
+  font-weight: 700;
+  color: var(--text-muted);
+  font-size: 1rem;
+}
+
+.workout-exercise-name {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--text-normal);
+}
+
+.workout-btn-info {
+  background: var(--background-modifier-hover);
+  border: 1px solid var(--background-modifier-border);
+  color: var(--text-muted);
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  min-height: 32px;
+  display: inline-flex;
+  align-items: center;
+  transition: all 0.15s ease;
+}
+
+.workout-btn-info:hover {
+  color: var(--text-normal);
+  background-color: var(--background-modifier-active-hover);
+}
+
+.workout-exercise-subbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--background-modifier-border);
+}
+
+.workout-exercise-thumbnail {
+  width: 44px;
+  height: 44px;
+  border-radius: 6px;
+  object-fit: cover;
+  background-color: var(--background-primary);
+  border: 1px solid var(--background-modifier-border);
+}
+
+.workout-tags-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.workout-muscle-tag {
+  background-color: var(--background-modifier-hover);
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-weight: 500;
+}
+
+.workout-rest-tag {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+/* ==========================================================================
+   Tabela serii (Sets Table) - Ergonomia Hevy
+   ========================================================================== */
+.workout-sets-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 6px 0 10px 0;
+  table-layout: fixed;
+}
+
+.workout-sets-table th {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 6px 4px;
+  text-align: center;
+  border-bottom: 1px solid var(--background-modifier-border);
+}
+
+.workout-sets-table th.col-set { width: 44px; }
+.workout-sets-table th.col-prev { width: 28%; }
+.workout-sets-table th.col-weight { width: 24%; }
+.workout-sets-table th.col-reps { width: 22%; }
+.workout-sets-table th.col-status { width: 48px; }
+
+.workout-set-row td {
+  padding: 6px 4px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.workout-set-row.is-completed {
+  background-color: rgba(16, 185, 129, 0.06);
+  border-radius: 6px;
+}
+
+.workout-set-number-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 6px;
+  background-color: var(--background-modifier-hover);
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.workout-prev-text {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-family: var(--font-monospace, monospace);
+  white-space: nowrap;
+}
+
+/* Pola numeryczne z ghost textem */
+.workout-input-number {
+  width: 100%;
+  max-width: 80px;
+  height: 40px;
+  padding: 4px 6px;
+  text-align: center;
+  font-size: 0.95rem;
+  font-weight: 600;
+  font-family: var(--font-monospace, monospace);
+  background-color: var(--background-primary);
+  border: 1px solid var(--background-modifier-border);
+  border-radius: 6px;
+  color: var(--text-normal);
+  transition: all 0.15s ease;
+}
+
+.workout-input-number:focus {
+  border-color: var(--interactive-accent);
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(var(--interactive-accent-rgb, 16, 185, 129), 0.2);
+}
+
+/* Stylizacja Ghost Text (Placeholder) */
+.workout-input-number::placeholder {
+  color: var(--text-muted);
+  opacity: 0.45;
+  font-weight: 400;
+}
+
+.workout-set-row.is-completed .workout-input-number {
+  background-color: transparent;
+  border-color: transparent;
+  color: var(--text-normal);
+  font-weight: 700;
+}
+
+/* Przycisk statusu serii [ ✓ ] - Minimum 44x44px dla dotyku */
+.workout-btn-check {
+  width: 42px;
+  height: 42px;
+  min-width: 42px;
+  min-height: 42px;
+  border-radius: 8px;
+  border: 1.5px solid var(--background-modifier-border);
+  background-color: var(--background-primary);
+  color: var(--text-normal);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+  padding: 0;
+  margin: 0 auto;
+}
+
+.workout-btn-check:hover {
+  background-color: var(--background-modifier-hover);
+  border-color: var(--interactive-accent);
+}
+
+.workout-btn-check.is-checked {
+  background-color: #10b981 !important;
+  border-color: #10b981 !important;
+  color: #ffffff !important;
+  transform: scale(1.04);
+}
+
+/* Akcje pod tabelą serii */
+.workout-exercise-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 6px;
+}
+
+/* ==========================================================================
+   Dolny pasek akcji (Bottom Bar)
+   ========================================================================== */
+.workout-modal-bottom-bar {
+  padding: 12px 18px;
+  background-color: var(--background-secondary);
+  border-top: 1px solid var(--background-modifier-border);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+/* ==========================================================================
+   Przyciski i narzędzia stylizacyjne
+   ========================================================================== */
+.workout-btn-full {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  min-height: 46px;
+  transition: all 0.15s ease;
+}
+
+.workout-btn-primary {
+  background-color: var(--interactive-accent, #10b981);
+  color: #ffffff;
+  border: none;
+}
+
+.workout-btn-primary:hover {
+  filter: brightness(1.08);
+}
+
+.workout-btn-secondary {
+  background-color: var(--background-primary);
+  color: var(--text-normal);
+  border: 1px solid var(--background-modifier-border);
+}
+
+.workout-btn-secondary:hover {
+  background-color: var(--background-modifier-hover);
+}
+
+.workout-btn-ghost {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  padding: 6px 10px;
+  border-radius: 6px;
+}
+
+.workout-btn-ghost:hover {
+  color: var(--text-normal);
+  background-color: var(--background-modifier-hover);
+}
+
+.workout-btn-danger {
+  color: var(--text-error, #ef4444);
+}
+
+.workout-btn-sm {
+  font-size: 0.82rem;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.workout-btn-xs {
+  font-size: 0.78rem;
+  padding: 4px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+/* Modale Info i Picker */
+.workout-info-modal,
+.workout-picker-modal,
+.workout-template-select-modal,
+.workout-body-tracker-modal {
+  padding: 16px;
+}
+
+.workout-info-cover {
+  width: 100%;
+  max-height: 240px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin: 12px 0;
+  border: 1px solid var(--background-modifier-border);
+}
+
+.workout-info-meta-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.workout-info-meta-item .meta-label {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  display: block;
+}
+
+.workout-info-meta-item .meta-val {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-normal);
+}
+
+.workout-info-markdown {
+  background-color: var(--background-secondary);
+  padding: 14px;
+  border-radius: 8px;
+  border: 1px solid var(--background-modifier-border);
+  margin-bottom: 16px;
+  line-height: 1.6;
+}
+
+.workout-picker-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 340px;
+  overflow-y: auto;
+  margin: 12px 0;
+}
+
+.workout-picker-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  background-color: var(--background-secondary);
+  border: 1px solid var(--background-modifier-border);
+  border-radius: 8px;
+}
+
+.workout-picker-row-title {
+  font-weight: 600;
+  color: var(--text-normal);
+}
+
+.workout-picker-row-sub {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.workout-search-input {
+  width: 100%;
+  padding: 8px 12px;
+  border-radius: 6px;
+  background-color: var(--background-secondary);
+  border: 1px solid var(--background-modifier-border);
+  color: var(--text-normal);
+}
+
+.workout-template-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 14px 0;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.workout-template-card {
+  background-color: var(--background-secondary);
+  border: 1px solid var(--background-modifier-border);
+  border-radius: 8px;
+  padding: 12px;
+}
+
+.workout-template-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.workout-template-card-top h3 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.workout-badge {
+  font-size: 0.75rem;
+  background-color: var(--background-modifier-hover);
+  padding: 2px 8px;
+  border-radius: 4px;
+  color: var(--text-muted);
+}
+
+.workout-template-exercises-preview {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin-top: 6px;
+}
+
+.workout-form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.workout-form-group label {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  display: block;
+  margin-bottom: 4px;
+}
+
+.workout-form-group input {
+  width: 100%;
+  padding: 6px 8px;
+  background-color: var(--background-secondary);
+  border: 1px solid var(--background-modifier-border);
+  border-radius: 6px;
+  color: var(--text-normal);
+}
+
+.workout-table-responsive {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.workout-mt-2 { margin-top: 8px; }
+.workout-mt-3 { margin-top: 12px; }
+.workout-mt-4 { margin-top: 16px; }
+.workout-mb-4 { margin-bottom: 16px; }
+.workout-text-muted { color: var(--text-muted); font-size: 0.85rem; }

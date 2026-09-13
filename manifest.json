@@ -1,0 +1,10 @@
+{
+  "id": "obsidian-workout-tracker",
+  "name": "Workout Tracker (Hevy Style)",
+  "version": "1.0.0",
+  "minAppVersion": "1.4.0",
+  "description": "Natywna wtyczka treningowa w stylu Hevy – szablony, aktywny trening, rest timer z powiadomieniami i śledzenie progresu w Markdown.",
+  "author": "Obsidian Fitness Dev",
+  "authorUrl": "https://github.com",
+  "isDesktopOnly": false
+}

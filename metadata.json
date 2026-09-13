@@ -1,0 +1,6 @@
+{
+  "name": "Obsidian Workout Tracker",
+  "description": "Wtyczka treningowa do Obsidiana w stylu Hevy – planowanie, aktywny trening i śledzenie progresu w Markdown.",
+  "requestFramePermissions": ["notifications"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
